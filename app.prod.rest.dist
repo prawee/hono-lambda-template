@@ -1,0 +1,16 @@
+# API
+
+###
+GET https://{aws-id}.execute-api.ap-southeast-1.amazonaws.com/prod/api
+
+###
+POST https://{aws-id}.execute-api.ap-southeast-1.amazonaws.com/prod/api
+
+###
+PUT https://{aws-id}.execute-api.ap-southeast-1.amazonaws.com/prod/api
+
+###
+PATCH https://{aws-id}.execute-api.ap-southeast-1.amazonaws.com/prod/api
+
+###
+DELETE https://{aws-id}.execute-api.ap-southeast-1.amazonaws.com/prod/api
