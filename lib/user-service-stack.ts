@@ -4,12 +4,18 @@ import { Construct } from "constructs";
 import * as lambda from "aws-cdk-lib/aws-lambda";
 import * as apigw from "aws-cdk-lib/aws-apigateway";
 
+interface UserServiceStackProps extends cdk.StackProps {
+  stage: string;
+}
+
 export class UserServiceStack extends cdk.Stack {
-  constructor(scope: Construct, id: string, props?: cdk.StackProps) {
+  constructor(scope: Construct, id: string, props?: UserServiceStackProps) {
     super(scope, id, props);
 
-    const fn = new NodejsFunction(this, "UserServiceHandler", {
-      functionName: "user-service",
+    const stage = props?.stage ?? "dev";
+
+    const fn = new NodejsFunction(this, `NameService-${stage}`, {
+      functionName: `name-service-${stage}`,
       depsLockFilePath: "package-lock.json",
       entry: "src/lambda.ts",
       handler: "handler",
@@ -28,18 +34,24 @@ export class UserServiceStack extends cdk.Stack {
         },
       },
       environment: {
-        STAGE: process.env.STAGE || "dev",
+        NODE_ENV: stage === "prod" ? "production" : "development",
+        STAGE: stage,
       },
     });
 
-    const endpoint = new apigw.LambdaRestApi(this, "UserServiceGateway", {
-      handler: fn,
-      proxy: true,
-    });
+    const endpoint = new apigw.LambdaRestApi(this, `NameServiceGateway-${stage}`, {
+        description: `Name Service Gateway (Stage: ${stage})`,
+        handler: fn,
+        proxy: true,
+        deployOptions: {
+          stageName: stage,
+        },
+      }
+    );
 
-    new cdk.CfnOutput(this, "UserServiceApiEndpoint", {
+    new cdk.CfnOutput(this, `NameServiceEndpoint-${stage}`, {
       value: endpoint.url,
-      description: "The API endpoint of User Service",
+      description: `The endpoint of Name Service (Stage: ${stage})`,
     });
   }
 }
