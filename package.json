@@ -12,18 +12,19 @@
     "dev": "nodemon"
   },
   "devDependencies": {
-    "@types/jest": "^29.5.14",
-    "@types/node": "22.7.9",
-    "aws-cdk": "2.1013.0",
-    "jest": "^29.7.0",
-    "ts-jest": "^29.2.5",
+    "@types/jest": "^30.0.0",
+    "@types/node": "^24.10.1",
+    "aws-cdk": "^2.1033.0",
+    "jest": "^30.2.0",
+    "nodemon": "^3.1.11",
+    "ts-jest": "^29.4.5",
     "ts-node": "^10.9.2",
-    "typescript": "~5.6.3"
+    "typescript": "^5.9.3"
   },
   "dependencies": {
-    "@hono/node-server": "^1.14.1",
-    "aws-cdk-lib": "2.190.0",
-    "constructs": "^10.0.0",
-    "hono": "^4.7.8"
+    "@hono/node-server": "^1.19.6",
+    "aws-cdk-lib": "^2.227.0",
+    "constructs": "^10.4.3",
+    "hono": "^4.10.6"
   }
 }
