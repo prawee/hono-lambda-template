@@ -1,11 +1,6 @@
 import { Hono } from "hono";
 
-const app = new Hono().basePath("/api");
-
-app.use(async (c, next) => {
-  console.log("running middleware first");
-  await next();
-});
+const app = new Hono();
 
 app.get("/", (c) => c.text("(GET) - User Service!!"));
 app.post("/", (c) => c.text("(POST) - User Service!!"));
